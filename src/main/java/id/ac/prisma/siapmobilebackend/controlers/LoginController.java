@@ -1,9 +1,10 @@
 package id.ac.prisma.siapmobilebackend.controlers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import id.ac.prisma.siapmobilebackend.models.LoginRequest;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -22,26 +23,35 @@ public class LoginController {
      */
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-    public String login(String email, String password) {
+    public Map login(@RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        Map response = new HashMap();
         //validasi
         if (email == null) {
             // response gagal email salah
-            return null;
+            response.put("message","email null");
+            return response;
         }
         if (email == "") {
             // response gagal email salah
-            return null;
+            response.put("message","email kosong");
+            return response;
         }
         if (password == null) {
             // response gagal password salah
-            return null;
+            response.put("message","password null");
+            return response;
         }
         if (password == "") {
             // response gagal
-            return null;
+            response.put("message","password kosong");
+            return response;
         }
         //kita buatkan accesstoken
         String accessToken = UUID.randomUUID().toString();
-        return accessToken;
+        response.put("accessToken", accessToken);
+        return response;
     }
 }

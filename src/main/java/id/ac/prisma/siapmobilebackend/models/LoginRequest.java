@@ -1,0 +1,24 @@
+package id.ac.prisma.siapmobilebackend.models;
+
+public class LoginRequest {
+    String email;
+    String password;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+}

@@ -11,7 +11,7 @@ import java.util.UUID;
 @RequestMapping(value = {"/login"})
 public class LoginController {
 
-    String accessToken = "";
+    public String accessToken = "";
 
     /**
      * fungsi untuk menerima data dari aplikasi mobile
@@ -22,17 +22,18 @@ public class LoginController {
      * jika valid maka buatkan  accsessToken, jika tidak kasi response gagal
      */
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-    public Map login(@RequestBody LoginRequest loginRequest) {
-        String email = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
+        @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+        public Map login(@RequestBody LoginRequest loginRequest) {
+            String password = loginRequest.getPassword();
+            String email = loginRequest.getEmail();
 
-        Map response = new HashMap();
-        //validasi
-        if (email == null) {
-            // response gagal email salah
-            response.put("message","email null");
-            return response;
+            String kulkas = "ikan";
+            Map response = new HashMap();
+            //validasi
+            if (email == null) {
+                // response gagal email salah
+                response.put("message","email null");
+                return response;
         }
         if (email == "") {
             // response gagal email salah
@@ -49,6 +50,7 @@ public class LoginController {
             response.put("message","password kosong");
             return response;
         }
+
         //kita buatkan accesstoken
         String accessToken = UUID.randomUUID().toString();
         response.put("accessToken", accessToken);

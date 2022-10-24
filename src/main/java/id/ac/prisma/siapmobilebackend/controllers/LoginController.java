@@ -1,6 +1,9 @@
-package id.ac.prisma.siapmobilebackend.controlers;
+package id.ac.prisma.siapmobilebackend.controllers;
 
+import id.ac.prisma.siapmobilebackend.data.model.TbUser;
+import id.ac.prisma.siapmobilebackend.data.repo.TbUserRepository;
 import id.ac.prisma.siapmobilebackend.models.LoginRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -10,6 +13,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = {"/login"})
 public class LoginController {
+
+    @Autowired
+    private TbUserRepository tbUserRepository;
 
     public String accessToken = "";
 
@@ -25,6 +31,8 @@ public class LoginController {
         @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
         public Map login(@RequestBody LoginRequest loginRequest) {
             String password = loginRequest.getPassword();
+            // password sha256 hashing
+
             String email = loginRequest.getEmail();
 
             String kulkas = "ikan";
@@ -51,9 +59,23 @@ public class LoginController {
             return response;
         }
 
+        TbUser userDetail = tbUserRepository.findByEmail(email).orElse(null);
+        if (userDetail == null) {
+            // response gagal
+            response.put("message","email tidak terdaftar");
+            return response;
+        }
+
+        if (!userDetail.getPassword().equals(password)) {
+            // response gagal
+            response.put("message","password salah");
+            return response;
+        }
+
         //kita buatkan accesstoken
         String accessToken = UUID.randomUUID().toString();
         response.put("accessToken", accessToken);
+        response.put("status", "success");
         return response;
     }
 }

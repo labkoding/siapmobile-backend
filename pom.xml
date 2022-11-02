@@ -8,11 +8,11 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>id.ac.prisma</groupId>
-	<artifactId>siapmobilebackend</artifactId>
+	<groupId>com.prisma</groupId>
+	<artifactId>servicepaymentbackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>siapmobilebackend</name>
-	<description>project siapmobile backend</description>
+	<name>servicepaymentbackend</name>
+	<description>service payment backend</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

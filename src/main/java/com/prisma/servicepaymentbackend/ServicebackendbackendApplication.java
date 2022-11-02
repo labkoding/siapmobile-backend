@@ -1,13 +1,13 @@
-package id.ac.prisma.siapmobilebackend;
+package com.prisma.servicepaymentbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SiapmobilebackendApplication {
+public class ServicebackendbackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SiapmobilebackendApplication.class, args);
+		SpringApplication.run(ServicebackendbackendApplication.class, args);
 	}
 
 }

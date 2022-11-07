@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface TbUserRepository extends CrudRepository<TbUser, Integer> {
     Optional<TbUser> findByEmail(String email);
+    Optional<TbUser> findByFullName(String fullName);
 }

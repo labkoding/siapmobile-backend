@@ -2,6 +2,7 @@ package id.ac.prisma.siapmobilebackend.controllers;
 
 import id.ac.prisma.siapmobilebackend.data.model.TbUser;
 import id.ac.prisma.siapmobilebackend.data.repo.TbUserRepository;
+import id.ac.prisma.siapmobilebackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,17 @@ public class UserController {
 
     @Autowired
     TbUserRepository tbUserRepository;
+
+    @Autowired
+    UserService userService;
+
+    @RequestMapping(value = "/all-user", method = RequestMethod.GET, produces = "application/json")
+    public Map getAllUser() {
+        Map response = new HashMap();
+        response.put("message", "success");
+        response.put("data", tbUserRepository.findAll());
+        return response;
+    }
 
     @RequestMapping(value = "/by-id/{id}", method = RequestMethod.GET, produces = "application/json")
     public Map getUserById(@PathVariable("id") Integer id) {
@@ -39,16 +51,15 @@ public class UserController {
 
     @RequestMapping(value = "/create-user", method = RequestMethod.POST, produces = "application/json")
     public Map createUser(@RequestBody Map bodyRequest) {
-        // insert data
-        // call tbUserRepository.save
-        TbUser tbUser = new TbUser();
-        tbUser.setFullName(bodyRequest.get("full_name").toString());
-        tbUser.setEmail(bodyRequest.get("email").toString());
-        tbUser.setPassword(bodyRequest.get("password").toString());
-        tbUser = tbUserRepository.save(tbUser);
-
+        // call function createUser
+        Map createUserResponse = userService.createUser(
+                bodyRequest.get("fullName").toString(),
+                bodyRequest.get("email").toString(),
+                bodyRequest.get("password").toString()
+        );
         Map response = new HashMap();
-        response.put("data", tbUser);
+        response.put("message", "success");
+        response.put("data", createUserResponse.get("data"));
         return response;
     }
 
